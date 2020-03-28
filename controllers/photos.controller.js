@@ -72,7 +72,7 @@ exports.vote = async (req, res) => {
     else {
       const checkUser = await Voter.findOne({ user: req.clientIp });
       if(checkUser) {
-        if(checkUser.votes.includes(photoToUpdate._id))  res.json({ message: 'This user has been already voted!' });
+        if(checkUser.votes.includes(photoToUpdate._id))  res.status(500).json({ message: 'This user has been already voted!' });
         else {
           checkUser.votes.push(photoToUpdate._id);
           checkUser.save();
